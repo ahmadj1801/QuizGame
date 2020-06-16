@@ -6,36 +6,37 @@ using namespace std;
 
 class Player
 {
-	public:
-		struct PlayerDetails
-		{
-			string name;
-			int score;
-			double multiplier;
-			int numOfConsecutiveCorrectAns;
-		};
+private:
+	struct PlayerDetails
+	{
+		string name;
+		int score;
+		double multiplier;
+		int numOfConsecutiveCorrectAns;
+	};
+	PlayerDetails pd;
 
-	private:
-		//Constructors
-		Player();
-		Player(string name);
+public:
+	//Constructors
+	Player();
+	Player(string name);
 
-		//Accessors
-		string getName();
-		int getScore();
-		double getMultiplier();
-		int getNumConsec();
+	//Accessors
+	string getName();
+	int getScore();
+	double getMultiplier();
+	int getNumConsec();
 
-		//Mutators
-		void updateScore(int value);
-		void setMultiplier(double value);
-		void updateConsecAns();
+	//Mutators
+	void updateScore(int value);
+	void setMultiplier(double value);
+	void updateConsecAns();
 
-		//Auxillary
-		void displayResults();
+	//Auxillary
+	void displayResults();
 
-		//Destructor
-		~Player();
+	//Destructor
+	~Player();
 
 };
 

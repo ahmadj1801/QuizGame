@@ -1,5 +1,6 @@
 #include <iostream>
-#include "Player.cpp"
+#include "Player.h"
+#include <string>
 
 using namespace std;
 
@@ -7,6 +8,12 @@ inline void introduction();
 
 int main() {
 	introduction();
+	//TEST CODE ON THE PLAYER CLASS
+	Player *p1 = new Player("AJS");
+	Player *p2 = new Player("AM");
+	p1->displayResults();
+	p2->displayResults();
+	delete p1; delete p2;
 	return 0;
 }
 
