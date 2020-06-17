@@ -23,7 +23,7 @@ class Question {
 		//Dont think we'll need to modify any attributes?
 		
 		//Auxillary
-		void shuffle();//Need a way to shuffle the allAnswers vector so that when we output its always different
+		void shuffleAnswers();//Need a way to shuffle the allAnswers vector so that when we output its always different
 		//Also overload cout<< so we can use cout<<q1; and get a printed results
 		bool compareAnswers(char c);
 

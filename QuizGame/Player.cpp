@@ -43,6 +43,8 @@ void Player::updateConsecAns(int correct) {
 
 //Still need to decide how we will increase the other 2 i.e. score and multiplier
 
+//Overload > and < operators so we can compare player objects
+
 //Auxillary
 void Player::displayResults() {
 	cout << pd.name << endl;
