@@ -32,6 +32,16 @@ double Player::getMultiplier() {
 }
 
 //Mutators
+void Player::updateConsecAns(int correct) {
+	if (correct == 0) {
+		pd.numOfConsecutiveCorrectAns = 0;
+	}
+	else {
+		pd.numOfConsecutiveCorrectAns++;
+	}
+}
+
+//Still need to decide how we will increase the other 2 i.e. score and multiplier
 
 //Auxillary
 void Player::displayResults() {
@@ -41,4 +51,5 @@ void Player::displayResults() {
 //Destructor
 Player::~Player() {
 	cout << pd.name << " has left the game!" << endl;
+	//delete qAndA;
 }

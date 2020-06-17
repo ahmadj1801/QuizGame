@@ -1,5 +1,6 @@
 #include <iostream>
 #include "Player.h"
+#include "Question.h"
 #include <string>
 
 using namespace std;

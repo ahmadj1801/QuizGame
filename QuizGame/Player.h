@@ -1,6 +1,7 @@
 #pragma once
 #include <string>
 #include <iostream>
+#include <vector>
 
 using namespace std;
 
@@ -13,6 +14,8 @@ private:
 		int score;
 		double multiplier;
 		int numOfConsecutiveCorrectAns;
+		//vector<Question> orderOfQuestions;
+		//Map<Question,string> *qAndA;
 	};
 	PlayerDetails pd;
 
@@ -30,7 +33,7 @@ public:
 	//Mutators
 	void updateScore(int value);
 	void setMultiplier(double value);
-	void updateConsecAns();
+	void updateConsecAns(int correct);
 
 	//Auxillary
 	void displayResults();
