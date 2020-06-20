@@ -131,6 +131,12 @@
     <ClInclude Include="Player.h" />
     <ClInclude Include="Question.h" />
   </ItemGroup>
+  <ItemGroup>
+    <Text Include="geography.txt">
+      <DeploymentContent>false</DeploymentContent>
+    </Text>
+    <Text Include="history.txt" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

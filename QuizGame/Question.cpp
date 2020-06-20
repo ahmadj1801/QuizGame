@@ -43,3 +43,7 @@ bool Question::compareAnswers(char c) {
 		return false;
 	}	
 }
+
+Question::~Question() {
+
+}

@@ -1,7 +1,8 @@
 #include <iostream>
 #include "Player.h"
-#include "Question.h"
+//#include "Question.h"
 #include <string>
+#include <fstream>
 
 using namespace std;
 
@@ -15,6 +16,23 @@ int main() {
 	p1->displayResults();
 	p2->displayResults();
 	delete p1; delete p2;
+
+	std::ifstream inFile;
+
+	inFile.open("geography.txt");
+	if (inFile.is_open())
+	{
+		//  Comment out these lines when program is working the way you want.
+		cout << "\n File Geography is open" << std::endl;
+		
+	}
+	else
+	{
+		cout << "\n File Gepgraphy did not open" << std::endl;
+		 // <--- Needs header files chrono" and "thread"
+	
+	}
+	inFile.close();
 	return 0;
 }
 
