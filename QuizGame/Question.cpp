@@ -3,6 +3,10 @@
 #include <iostream>
 #include <vector>
 
+Question::Question() {
+	//Default
+}
+
 Question::Question(string question,vector<string> answers) {
 	this->question = question;
 	for (string s : answers) {

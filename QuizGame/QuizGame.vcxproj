@@ -126,10 +126,12 @@
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="Question.cpp" />
+    <ClCompile Include="QuestionBank.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Player.h" />
     <ClInclude Include="Question.h" />
+    <ClInclude Include="QuestionBank.h" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="geography.txt">

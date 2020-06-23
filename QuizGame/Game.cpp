@@ -3,10 +3,12 @@
 //#include "Question.h"
 #include <string>
 #include <fstream>
+#include <limits>
 
 using namespace std;
 
 inline void introduction();
+inline void waitForEnter();
 
 int main() {
 	introduction();
@@ -17,8 +19,10 @@ int main() {
 	p2->displayResults();
 	delete p1; delete p2;
 
-	std::ifstream inFile;
+	waitForEnter();
 
+	std::ifstream inFile;
+	//tested below code with all textfiles...works
 	inFile.open("geography.txt");
 	if (inFile.is_open())
 	{
@@ -36,7 +40,7 @@ int main() {
 	return 0;
 }
 
-void introduction() {
+inline void introduction() {
 	cout << "Welcome to *Insert Name*\n"
 		<< "\nHow to Play:\n"
 		<< "===============\n"
@@ -54,4 +58,9 @@ void introduction() {
 		<< "a) Spain\tb) Brazil\tc) South Africa\n"
 		<< "Expected response: c\n\n";
 
+}
+
+inline void waitForEnter() {
+	cout << "\nPress Enter to Play...";
+	cin.ignore(numeric_limits<streamsize>::max(), '\n');
 }

@@ -13,6 +13,7 @@ class Question {
 
 	public:
 		//Constructor
+		Question();
 		Question(string question,vector<string> answers); //index 0 correct others wrong
 
 		//Accessor
