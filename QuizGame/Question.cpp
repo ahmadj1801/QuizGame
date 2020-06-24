@@ -48,6 +48,14 @@ bool Question::compareAnswers(char c) {
 	}	
 }
 
+void Question::displayQuestion() {
+	cout << this->question<<endl;
+	for (string s : this->allAnswers) {
+		cout << s << "\t";
+	}
+	cout << endl;
+}
+
 Question::~Question() {
 
 }

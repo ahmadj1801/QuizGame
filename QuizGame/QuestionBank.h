@@ -21,6 +21,8 @@ class QuestionBank {
 		QuestionBank();
 		QuestionBank(int choice1,int choice2); //player 1 and player 2 choices...Read in textfiles
 		void readTextFile(int txt);
+		template<class Container>
+		void splitContent(const string &str, Container &cont,char delim);
 		void shuffle(); // shuffle the loading list
 		void displayQuestion(); //pop from stack and display to user
 

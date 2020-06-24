@@ -1,6 +1,7 @@
 #include <iostream>
 #include "Player.h"
 //#include "Question.h"
+#include "QuestionBank.h"
 #include <string>
 #include <fstream>
 #include <limits>
@@ -21,13 +22,22 @@ int main() {
 
 	waitForEnter();
 
-	std::ifstream inFile;
+	QuestionBank *questionBank = new QuestionBank(0, 1);
+
+
+
+	//std::ifstream inFile;
 	//tested below code with all textfiles...works
-	inFile.open("geography.txt");
+	/*inFile.open("geography.txt");
 	if (inFile.is_open())
 	{
 		//  Comment out these lines when program is working the way you want.
 		cout << "\n File Geography is open" << std::endl;
+		while (!inFile.eof()) {
+			string line;
+			getline(inFile, line);
+			cout << line<<endl;
+		}
 		
 	}
 	else
@@ -36,7 +46,7 @@ int main() {
 		 // <--- Needs header files chrono" and "thread"
 	
 	}
-	inFile.close();
+	inFile.close();*/
 	return 0;
 }
 
