@@ -5,6 +5,7 @@
 #include <string>
 #include <fstream>
 #include <limits>
+#include <algorithm>
 
 using namespace std;
 
@@ -13,8 +14,10 @@ inline void waitForEnter();
 inline void questionHeader(int &i);
 
 int main() {
+
 	//Display Game Rules
 	introduction();
+
 	//Wait for player to Click Enter before game starts
 	waitForEnter();
 
@@ -22,29 +25,50 @@ int main() {
 	string p1Name;
 	string p2Name;
 	cout << "Player 1, Please Enter your Name:" << endl;
-	cin >> p1Name;
-	cout << "Player , Please Enter your Name:" << endl;
-	cin >> p2Name;
+	getline(cin, p1Name); 
+	cout << "Player 2, Please Enter your Name:" << endl;
+	getline(cin, p2Name);
 
 	//Create Player objects
 	Player *p1 = new Player(p1Name);
 	Player *p2 = new Player(p2Name);
 
 	//Load all neccessary questions for the game
-	QuestionBank *questionBank = new QuestionBank(0,1);
+	QuestionBank *questionBank = new QuestionBank(2,4);
 
+	//Play the actual Game
+	string answer;
+	char response;
+	Question q;
 	for (int i = 1; i < 11; i++) {
 		//Player 1 plays
 		questionHeader(i);
+		if (!questionBank->questionsFinished()) {
+			q = questionBank->getQuestion();
+		}
+		cout << "Your Response: ";
+		getline(cin, answer);
+		answer.erase(remove_if(answer.begin(), answer.end(), ::isspace), answer.end());
+		response = answer[0]; 
+		tolower(response);
+		if (q.compareAnswers(response)){
+			cout<<"CORRECT"<<endl;
+		}
+		else {
+			cout<<"INCORRECT"<<endl;
+		}
+		cout << "Your Answer: " << response << " - Add here actual Ans" << endl; //Case: What if the input out of bounds
+		q.displayCorrectAnswer();
+		
 	}
 
 	for (int i = 1; i < 11; i++) {
 		//Player 2 plays
 		questionHeader(i);
+		if (!questionBank->questionsFinished()) {
+			questionBank->getQuestion();
+		}
 	}
-
-	questionBank->displayNextQuestion();
-
 
 	//Nothing special for now
 	p1->displayResults();
@@ -82,5 +106,5 @@ inline void waitForEnter() {
 }
 
 inline void questionHeader(int &i) {
-	cout << "Question " << i << ":\n";
+	cout << "\nQuestion " << i << ":";
 }

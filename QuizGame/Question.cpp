@@ -7,11 +7,18 @@ Question::Question() {
 	//Default
 }
 
-Question::Question(string question,vector<string> answers) {
+Question::Question(string question,vector<string> answers, string tag) {
 	this->question = question;
+	this->tag = tag;
+	int i = 0;
 	for (string s : answers) {
 		this->allAnswers.push_back(s);
+		if (i == 0) {
+			correctAnswer = s;
+		}
+		i++;
 	}
+	
 }
 
 string Question::getQuestion() {
@@ -20,6 +27,10 @@ string Question::getQuestion() {
 
 string Question::getCorrectAns() {
 	return correctAnswer;
+}
+
+string Question::getTag() {
+	return tag;
 }
 
 bool Question::compareAnswers(char c) {
@@ -36,11 +47,11 @@ bool Question::compareAnswers(char c) {
 		index = 2;
 		break;
 	default: 
-		cout << "Invalid Option Entered!";
+		cout << "Invalid Option Entered!\n";
 		return false;
 	}
 
-	if (allAnswers[index]._Equal(correctAnswer)) {
+	if (allAnswers[index].compare(correctAnswer)==0) {
 		return true;
 	}
 	else {
@@ -49,6 +60,7 @@ bool Question::compareAnswers(char c) {
 }
 
 void Question::displayQuestion() {
+	cout << "\n" << this->getTag() << endl;
 	cout << this->question<<endl;
 	int i = 0;
 	for (string s : this->allAnswers) {
@@ -65,6 +77,10 @@ void Question::displayQuestion() {
 		i++;
 	}
 	cout << endl;
+}
+
+void Question::displayCorrectAnswer() {
+	cout << "Correct Answer: " << correctAnswer << endl;
 }
 
 Question::~Question() {

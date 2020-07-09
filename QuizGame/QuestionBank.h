@@ -14,7 +14,7 @@ class QuestionBank {
 		const int MUSC = 2;
 		const int SCIN = 3;
 		const int FILM = 4;
-		stack<Question> *questionBank;
+		stack<Question> questionBank;
 		Question loadingList[20];
 
 	public:
@@ -32,10 +32,19 @@ class QuestionBank {
 		void splitContent(const string &str, Container &cont,char delim);
 
 		// shuffle the loading list 
-		void shuffle(); 
+		template<class T>
+		void shuffle(T arr[], int n); 
+
+		//Add items from the list to a stack
+		void populateStack();
+
+		//Check if our stack is empty
+		bool questionsFinished();
 
 		//pop from stack and display to user
-		void displayNextQuestion(); 
+		//void displayNextQuestion(); 
+
+		Question getQuestion();
 
 		//Destructor
 		~QuestionBank();
