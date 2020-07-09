@@ -6,6 +6,7 @@
 #include <fstream>
 #include <limits>
 #include <algorithm>
+#include <Windows.h>
 
 using namespace std;
 
@@ -34,12 +35,13 @@ int main() {
 	Player *p2 = new Player(p2Name);
 
 	//Load all neccessary questions for the game
-	QuestionBank *questionBank = new QuestionBank(2,4);
+	QuestionBank *questionBank = new QuestionBank(0,1);
 
-	//Play the actual Game
+	//Play the actual Game...All this code could actually be in a method once done
 	string answer;
 	char response;
 	Question q;
+	HANDLE handle = GetStdHandle(STD_OUTPUT_HANDLE);
 	for (int i = 1; i < 11; i++) {
 		//Player 1 plays
 		questionHeader(i);
@@ -52,16 +54,20 @@ int main() {
 		response = answer[0]; 
 		tolower(response);
 		if (q.compareAnswers(response)){
+			SetConsoleTextAttribute(handle, FOREGROUND_GREEN | FOREGROUND_INTENSITY);//Green
 			cout<<"CORRECT"<<endl;
 		}
 		else {
+			SetConsoleTextAttribute(handle, FOREGROUND_RED | FOREGROUND_INTENSITY);//Red
 			cout<<"INCORRECT"<<endl;
 		}
-		cout << "Your Answer: " << response << " - Add here actual Ans" << endl; //Case: What if the input out of bounds
+		SetConsoleTextAttribute(handle, FOREGROUND_BLUE | FOREGROUND_INTENSITY);//Blue
+		cout << "Your Answer: " << response<<" - " << q.getSpecificAnswer(response) << endl; 
 		q.displayCorrectAnswer();
+		SetConsoleTextAttribute(handle, 15 | FOREGROUND_INTENSITY);//White
 		
 	}
-
+	//Will have similar code for this player
 	for (int i = 1; i < 11; i++) {
 		//Player 2 plays
 		questionHeader(i);
@@ -69,10 +75,6 @@ int main() {
 			questionBank->getQuestion();
 		}
 	}
-
-	//Nothing special for now
-	p1->displayResults();
-	p2->displayResults();
 
 	//end of game, player leaves
 	delete p1; delete p2;
@@ -102,7 +104,7 @@ inline void introduction() {
 
 inline void waitForEnter() {
 	cout << "\nPress Enter to Play...\n";
-	cin.ignore(numeric_limits<streamsize>::max(), '\n');
+	cin.ignore();
 }
 
 inline void questionHeader(int &i) {

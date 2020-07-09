@@ -52,6 +52,6 @@ void Player::displayResults() {
 
 //Destructor
 Player::~Player() {
-	cout << pd.name << " has left the game!" << endl;
+	cout <<"\n"<< pd.name << " has left the game!" << endl;
 	//delete qAndA;
 }

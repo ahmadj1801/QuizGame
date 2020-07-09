@@ -59,6 +59,22 @@ bool Question::compareAnswers(char c) {
 	}	
 }
 
+string Question::getSpecificAnswer(char c) {
+	switch (c) {
+	case 'a':
+		return allAnswers[0];
+		break;
+	case 'b':
+		return allAnswers[1];
+		break;
+	case 'c':
+		return allAnswers[2];
+		break;
+	default:
+		return "No Answer for that option";
+	}
+}
+
 void Question::displayQuestion() {
 	cout << "\n" << this->getTag() << endl;
 	cout << this->question<<endl;

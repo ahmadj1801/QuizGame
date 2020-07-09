@@ -21,6 +21,7 @@ class Question {
 		string getQuestion();
 		string getCorrectAns();
 		string getTag();
+		string getSpecificAnswer(char c);
 
 		//Mutators
 		//Dont think we'll need to modify any attributes?
