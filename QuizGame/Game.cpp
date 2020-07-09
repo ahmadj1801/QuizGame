@@ -10,43 +10,48 @@ using namespace std;
 
 inline void introduction();
 inline void waitForEnter();
+inline void questionHeader(int &i);
 
 int main() {
+	//Display Game Rules
 	introduction();
-	//TEST CODE ON THE PLAYER CLASS
-	Player *p1 = new Player("AJS");
-	Player *p2 = new Player("AM");
-	p1->displayResults();
-	p2->displayResults();
-	delete p1; delete p2;
-
+	//Wait for player to Click Enter before game starts
 	waitForEnter();
 
-	QuestionBank *questionBank = new QuestionBank(0, 1);
+	//Capture player details
+	string p1Name;
+	string p2Name;
+	cout << "Player 1, Please Enter your Name:" << endl;
+	cin >> p1Name;
+	cout << "Player , Please Enter your Name:" << endl;
+	cin >> p2Name;
 
+	//Create Player objects
+	Player *p1 = new Player(p1Name);
+	Player *p2 = new Player(p2Name);
 
+	//Load all neccessary questions for the game
+	QuestionBank *questionBank = new QuestionBank(0,1);
 
-	//std::ifstream inFile;
-	//tested below code with all textfiles...works
-	/*inFile.open("geography.txt");
-	if (inFile.is_open())
-	{
-		//  Comment out these lines when program is working the way you want.
-		cout << "\n File Geography is open" << std::endl;
-		while (!inFile.eof()) {
-			string line;
-			getline(inFile, line);
-			cout << line<<endl;
-		}
-		
+	for (int i = 1; i < 11; i++) {
+		//Player 1 plays
+		questionHeader(i);
 	}
-	else
-	{
-		cout << "\n File Gepgraphy did not open" << std::endl;
-		 // <--- Needs header files chrono" and "thread"
-	
+
+	for (int i = 1; i < 11; i++) {
+		//Player 2 plays
+		questionHeader(i);
 	}
-	inFile.close();*/
+
+	questionBank->displayNextQuestion();
+
+
+	//Nothing special for now
+	p1->displayResults();
+	p2->displayResults();
+
+	//end of game, player leaves
+	delete p1; delete p2;
 	return 0;
 }
 
@@ -58,9 +63,10 @@ inline void introduction() {
 		<< "   - Each player will pick a topic from the list provided.\n"
 		<< "   - The questions generated for the quiz will be based on\n"
 		<< "     the topics choosen by the players.\n"
+		<< "   - The quiz will be comprised of 10 questions\n"
 		<< "   - Each player will be given two *perks?*\n"
 		<< "   - Correctly answered question will earn you one point, but\n"
-		<< "     string together X correct answers to earn yourself a\n"
+		<< "     string together 3 correct answers to earn yourself a\n"
 		<< "     score streak multiplier.\n"
 		<< "\nBelow is an example of a question you might encouter along with\n"
 		<< "its correct response:\n"
@@ -71,6 +77,10 @@ inline void introduction() {
 }
 
 inline void waitForEnter() {
-	cout << "\nPress Enter to Play...";
+	cout << "\nPress Enter to Play...\n";
 	cin.ignore(numeric_limits<streamsize>::max(), '\n');
+}
+
+inline void questionHeader(int &i) {
+	cout << "Question " << i << ":\n";
 }

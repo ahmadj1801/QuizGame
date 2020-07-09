@@ -1,20 +1,10 @@
-Music
 Which orchestral instrument plays the high note?#violin#cello#euphonium
-
 What is the most played song on American radio in the 20th century?#you've lost that loving feeling#danger zone#purple rain
-
 A clawhammer is playing style associated with which instrument?#banjo#guitar#bass
-
 Which famous guitarist is also known as "Slowhand"?#Eric Clapton#Buddy rich#Jimmy Page
-
 Who is the first hispanic to be inducted into the rock and roll hall of fame?#Carlos Santana#Rob Thomas#John lee Hooker
-
 Who is the first person to be on the cover of Rolling Stones magazine?#John Lennon#Micheal Jackson#David Bowie
-
 At what age did Jimi Hendrix, Janis Joplin and Kurt Cobain die?#27#26#25
-
 Which note does the Orchestra tunes to?#A#E#C
-
 What does C clef determine?#middle C#lower C#high C
-
-What is a caesura?#pause#type of drum#note 
+What is a caesura?#pause#type of drum#note

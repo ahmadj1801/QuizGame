@@ -17,12 +17,13 @@ QuestionBank::QuestionBank() {
 QuestionBank::QuestionBank(int choice1, int choice2) 
 {
 	//Read text files
-	readTextFile(choice1);
-	readTextFile(choice2);
+	readTextFile(choice1,0);
+	readTextFile(choice2,10);
 }
 
-void QuestionBank::readTextFile(int txt) 
+void QuestionBank::readTextFile(int txt, int round) 
 {
+	int index = round;
 	ifstream questionFile;
 	if (txt == GEOG) 
 	{
@@ -51,6 +52,7 @@ void QuestionBank::readTextFile(int txt)
 
 	if (questionFile.is_open()) 
 	{
+		cout << "\n\nOPEN\n\n";
 		while (!questionFile.eof()) 
 		{
 			string line;
@@ -64,7 +66,9 @@ void QuestionBank::readTextFile(int txt)
 			answers->push_back(components.at(2));
 			answers->push_back(components.at(3));
 			Question *question = new Question(userQuestion, *answers);
-			question->displayQuestion();
+			loadingList[index] = *question;
+			index++;
+			//question->displayQuestion();
 
 		}
 	}
@@ -87,8 +91,15 @@ void QuestionBank::splitContent(const string &str, Container &cont, char delim)
 	}
 }
 
+void QuestionBank::displayNextQuestion() {
+	for (int i = 0; i < 20; i++) {
+		loadingList[i].displayQuestion();
+	}
+}
+
 
 QuestionBank::~QuestionBank() 
 {
 	//Destructor
+	delete questionBank;
 }

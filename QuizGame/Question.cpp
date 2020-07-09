@@ -50,8 +50,19 @@ bool Question::compareAnswers(char c) {
 
 void Question::displayQuestion() {
 	cout << this->question<<endl;
+	int i = 0;
 	for (string s : this->allAnswers) {
+		if (i==0) {
+			cout << "a) ";
+		}
+		else if (i == 1) {
+			cout << "b) ";
+		}
+		else {
+			cout << "c) ";
+		}
 		cout << s << "\t";
+		i++;
 	}
 	cout << endl;
 }
