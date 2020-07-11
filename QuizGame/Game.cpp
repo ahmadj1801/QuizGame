@@ -6,13 +6,21 @@
 #include <fstream>
 #include <limits>
 #include <algorithm>
-#include <Windows.h>
+//#include <Windows.h>
 
 using namespace std;
 
 inline void introduction();
 inline void waitForEnter();
 inline void questionHeader(int &i);
+//inline void setWhite(HANDLE &h);
+//inline void setRed(HANDLE &h);
+//inline void setGreen(HANDLE &h);
+//inline void setBlue(HANDLE &h);
+//inline void setYellow(HANDLE &h);
+void playARound(Player &p);
+
+const int CORRECT = 10;
 
 int main() {
 
@@ -41,9 +49,11 @@ int main() {
 	string answer;
 	char response;
 	Question q;
-	HANDLE handle = GetStdHandle(STD_OUTPUT_HANDLE);
+	//HANDLE handle = GetStdHandle(STD_OUTPUT_HANDLE);
 	for (int i = 1; i < 11; i++) {
 		//Player 1 plays
+		p1->displayCompletionbar();
+		cout <<"\t"<< (i - 1) * 10 << "% Complete";
 		questionHeader(i);
 		if (!questionBank->questionsFinished()) {
 			q = questionBank->getQuestion();
@@ -54,18 +64,22 @@ int main() {
 		response = answer[0]; 
 		tolower(response);
 		if (q.compareAnswers(response)){
-			SetConsoleTextAttribute(handle, FOREGROUND_GREEN | FOREGROUND_INTENSITY);//Green
+			//SetConsoleTextAttribute(handle, FOREGROUND_GREEN | FOREGROUND_INTENSITY);//Green
 			cout<<"CORRECT"<<endl;
+			p1->updateScore(CORRECT);
+			p1->updateConsecAns(true);
 		}
 		else {
-			SetConsoleTextAttribute(handle, FOREGROUND_RED | FOREGROUND_INTENSITY);//Red
+			//SetConsoleTextAttribute(handle, FOREGROUND_RED | FOREGROUND_INTENSITY);//Red
 			cout<<"INCORRECT"<<endl;
+			p1->updateConsecAns(false);
 		}
-		SetConsoleTextAttribute(handle, FOREGROUND_BLUE | FOREGROUND_INTENSITY);//Blue
+		//SetConsoleTextAttribute(handle, FOREGROUND_BLUE | FOREGROUND_INTENSITY);//Blue
 		cout << "Your Answer: " << response<<" - " << q.getSpecificAnswer(response) << endl; 
 		q.displayCorrectAnswer();
-		SetConsoleTextAttribute(handle, 15 | FOREGROUND_INTENSITY);//White
-		
+		cout << "\n\n";
+		//SetConsoleTextAttribute(handle, 15 | FOREGROUND_INTENSITY);//White
+		p1->updateCompletionBar();
 	}
 	//Will have similar code for this player
 	for (int i = 1; i < 11; i++) {
@@ -75,7 +89,17 @@ int main() {
 			questionBank->getQuestion();
 		}
 	}
-
+	//Next line for debug purposes
+	cout << "Player1=" << p1->getScore() << "\tPlayer2=" << p2->getScore();
+	//Include: Background colour of yellow
+	if (p1 > p2) {
+		cout << "Player 1 Wins";
+	}else if(p1 < p2) {
+		cout << "Player 2 Wins";
+	}
+	else {
+		cout << "Draw";
+	}
 	//end of game, player leaves
 	delete p1; delete p2;
 	return 0;
@@ -109,4 +133,9 @@ inline void waitForEnter() {
 
 inline void questionHeader(int &i) {
 	cout << "\nQuestion " << i << ":";
+}
+
+//Code that will play a single question round
+void playAround(Player &p) {
+
 }

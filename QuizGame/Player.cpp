@@ -12,6 +12,7 @@ Player::Player(string name) {
 	pd.multiplier = 1;
 	pd.numOfConsecutiveCorrectAns = 0;
 	pd.score = 0;
+	pd.completionBar = "";
 }
 
 //Accessors
@@ -19,7 +20,7 @@ string Player::getName() {
 	return pd.name;
 }
 
-int Player::getScore() {
+double Player::getScore() {
 	return pd.score;
 }
 
@@ -32,8 +33,8 @@ double Player::getMultiplier() {
 }
 
 //Mutators
-void Player::updateConsecAns(int correct) {
-	if (correct == 0) {
+void Player::updateConsecAns(bool correct) {
+	if (correct == false) {
 		pd.numOfConsecutiveCorrectAns = 0;
 	}
 	else {
@@ -41,23 +42,43 @@ void Player::updateConsecAns(int correct) {
 	}
 }
 
+void Player::updateScore(double correct) {
+	pd.score = pd.score + correct * pd.multiplier;
+}
+
 //Still need to decide how we will increase the other 2 i.e. score and multiplier
-void Player::updateScore(int value) {
 
+//Overload > and < operators so we can compare player objects
+bool Player::operator>(const Player &p) {
+	if (pd.score > p.pd.score) {
+		return true;
+	}
+	else {
+		return false;
+	}
 }
 
-
-//Overload > and < operators so we can compare player objects 
-bool Player::operator<(const Player& i) {
-	
-		if (pd.score < i.getScore()) {
-			return true;}
-		else { return false; }
+bool Player::operator<(const Player &p) {
+	if (pd.score < p.pd.score) {
+		return true;
+	}
+	else {
+		return false;
+	}
 }
+
+void Player::updateCompletionBar() {
+	pd.completionBar = pd.completionBar + "|||";
+}
+
 //Auxillary
 void Player::displayResults() {
 	cout << pd.name << endl;
 } 
+
+void Player::displayCompletionbar() {
+	cout << pd.completionBar;
+}
 
 //Destructor
 Player::~Player() {

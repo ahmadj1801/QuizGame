@@ -13,11 +13,12 @@ private:
 	struct PlayerDetails
 	{
 		string name; //Name of Player
-		int score; //Current score
+		double score; //Current score
 		double multiplier; //Multiplier for score
 		int numOfConsecutiveCorrectAns; //Correct streak
-		vector<Question> orderOfQuestions; //Questions asked in order
-		map<Question,string> *qAndA; // Map doesnt have order.
+		string completionBar;// Form something like this "|||||||||" increment by ||| each question
+		//vector<Question> orderOfQuestions; //Questions asked in order
+		//map<Question,string> *qAndA; // Map doesnt have order.
 	};
 	PlayerDetails pd;
 
@@ -28,18 +29,23 @@ public:
 
 	//Accessors
 	string getName();
-	int getScore();
+	double getScore();
 	double getMultiplier();
 	int getNumConsec();
 
 	//Mutators
-	void updateScore(int value);
+	void updateScore(double value);
 	void setMultiplier(double value);
-	void updateConsecAns(int correct);
-	bool operator <(const Player& i);
+	void updateConsecAns(bool correct);
+	void updateCompletionBar();
+
+	bool operator>(const Player &p);
+
+	bool operator<(const Player &p);
+
 	//Auxillary
 	void displayResults();
-
+	void displayCompletionbar();
 	//Destructor
 	~Player();
 
