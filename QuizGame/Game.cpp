@@ -13,6 +13,9 @@ using namespace std;
 inline void introduction();
 inline void waitForEnter();
 inline void questionHeader(int &i);
+void playARound(Player &p);
+
+const int CORRECT = 10;
 
 int main() {
 
@@ -56,10 +59,13 @@ int main() {
 		if (q.compareAnswers(response)){
 			SetConsoleTextAttribute(handle, FOREGROUND_GREEN | FOREGROUND_INTENSITY);//Green
 			cout<<"CORRECT"<<endl;
+			p1->updateScore(CORRECT);
+			p1->updateConsecAns(true);
 		}
 		else {
 			SetConsoleTextAttribute(handle, FOREGROUND_RED | FOREGROUND_INTENSITY);//Red
 			cout<<"INCORRECT"<<endl;
+			p1->updateConsecAns(false);
 		}
 		SetConsoleTextAttribute(handle, FOREGROUND_BLUE | FOREGROUND_INTENSITY);//Blue
 		cout << "Your Answer: " << response<<" - " << q.getSpecificAnswer(response) << endl; 
@@ -77,6 +83,15 @@ int main() {
 	}
 
 	//end of game, player leaves
+	if (p1 > p2) {
+		cout << "Player 1 Wins";
+	}else if(p1 < p2) {
+		cout << "Player 2 Wins";
+	}
+	else {
+		cout << "Draw";
+	}
+
 	delete p1; delete p2;
 	return 0;
 }
@@ -109,4 +124,9 @@ inline void waitForEnter() {
 
 inline void questionHeader(int &i) {
 	cout << "\nQuestion " << i << ":";
+}
+
+//Code that will play a single question round
+void playAround(Player &p) {
+
 }

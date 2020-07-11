@@ -19,7 +19,7 @@ string Player::getName() {
 	return pd.name;
 }
 
-int Player::getScore() {
+double Player::getScore() {
 	return pd.score;
 }
 
@@ -32,8 +32,8 @@ double Player::getMultiplier() {
 }
 
 //Mutators
-void Player::updateConsecAns(int correct) {
-	if (correct == 0) {
+void Player::updateConsecAns(bool correct) {
+	if (correct == false) {
 		pd.numOfConsecutiveCorrectAns = 0;
 	}
 	else {
@@ -41,9 +41,30 @@ void Player::updateConsecAns(int correct) {
 	}
 }
 
+void Player::updateScore(double correct) {
+	pd.score = correct * pd.multiplier;
+}
+
 //Still need to decide how we will increase the other 2 i.e. score and multiplier
 
 //Overload > and < operators so we can compare player objects
+bool Player::operator>(const Player &p) {
+	if (this->pd.score > p.pd.score) {
+		return true;
+	}
+	else {
+		return false;
+	}
+}
+
+bool Player::operator<(const Player &p) {
+	if (this->pd.score < p.pd.score) {
+		return true;
+	}
+	else {
+		return false;
+	}
+}
 
 //Auxillary
 void Player::displayResults() {

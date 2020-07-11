@@ -13,7 +13,7 @@ private:
 	struct PlayerDetails
 	{
 		string name; //Name of Player
-		int score; //Current score
+		double score; //Current score
 		double multiplier; //Multiplier for score
 		int numOfConsecutiveCorrectAns; //Correct streak
 		vector<Question> orderOfQuestions; //Questions asked in order
@@ -28,14 +28,18 @@ public:
 
 	//Accessors
 	string getName();
-	int getScore();
+	double getScore();
 	double getMultiplier();
 	int getNumConsec();
 
 	//Mutators
-	void updateScore(int value);
+	void updateScore(double value);
 	void setMultiplier(double value);
-	void updateConsecAns(int correct);
+	void updateConsecAns(bool correct);
+
+	bool operator>(const Player &p);
+
+	bool operator<(const Player &p);
 
 	//Auxillary
 	void displayResults();
