@@ -16,8 +16,9 @@ private:
 		double score; //Current score
 		double multiplier; //Multiplier for score
 		int numOfConsecutiveCorrectAns; //Correct streak
-		vector<Question> orderOfQuestions; //Questions asked in order
-		map<Question,string> *qAndA; // Map doesnt have order.
+		string completionBar;// Form something like this "|||||||||" increment by ||| each question
+		//vector<Question> orderOfQuestions; //Questions asked in order
+		//map<Question,string> *qAndA; // Map doesnt have order.
 	};
 	PlayerDetails pd;
 
@@ -36,6 +37,7 @@ public:
 	void updateScore(double value);
 	void setMultiplier(double value);
 	void updateConsecAns(bool correct);
+	void updateCompletionBar();
 
 	bool operator>(const Player &p);
 
@@ -43,7 +45,7 @@ public:
 
 	//Auxillary
 	void displayResults();
-
+	void displayCompletionbar();
 	//Destructor
 	~Player();
 

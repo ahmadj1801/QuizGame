@@ -12,6 +12,7 @@ Player::Player(string name) {
 	pd.multiplier = 1;
 	pd.numOfConsecutiveCorrectAns = 0;
 	pd.score = 0;
+	pd.completionBar = "";
 }
 
 //Accessors
@@ -42,14 +43,14 @@ void Player::updateConsecAns(bool correct) {
 }
 
 void Player::updateScore(double correct) {
-	pd.score = correct * pd.multiplier;
+	pd.score = pd.score + correct * pd.multiplier;
 }
 
 //Still need to decide how we will increase the other 2 i.e. score and multiplier
 
 //Overload > and < operators so we can compare player objects
 bool Player::operator>(const Player &p) {
-	if (this->pd.score > p.pd.score) {
+	if (pd.score > p.pd.score) {
 		return true;
 	}
 	else {
@@ -58,7 +59,7 @@ bool Player::operator>(const Player &p) {
 }
 
 bool Player::operator<(const Player &p) {
-	if (this->pd.score < p.pd.score) {
+	if (pd.score < p.pd.score) {
 		return true;
 	}
 	else {
@@ -66,10 +67,18 @@ bool Player::operator<(const Player &p) {
 	}
 }
 
+void Player::updateCompletionBar() {
+	pd.completionBar = pd.completionBar + "|||";
+}
+
 //Auxillary
 void Player::displayResults() {
 	cout << pd.name << endl;
 } 
+
+void Player::displayCompletionbar() {
+	cout << pd.completionBar;
+}
 
 //Destructor
 Player::~Player() {
