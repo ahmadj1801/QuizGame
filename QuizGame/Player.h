@@ -36,7 +36,7 @@ public:
 	void updateScore(int value);
 	void setMultiplier(double value);
 	void updateConsecAns(int correct);
-
+	bool operator <(const Player& i);
 	//Auxillary
 	void displayResults();
 

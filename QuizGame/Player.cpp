@@ -42,9 +42,18 @@ void Player::updateConsecAns(int correct) {
 }
 
 //Still need to decide how we will increase the other 2 i.e. score and multiplier
+void Player::updateScore(int value) {
 
-//Overload > and < operators so we can compare player objects
+}
 
+
+//Overload > and < operators so we can compare player objects 
+bool Player::operator<(const Player& i) {
+	
+		if (pd.score < i.getScore()) {
+			return true;}
+		else { return false; }
+}
 //Auxillary
 void Player::displayResults() {
 	cout << pd.name << endl;
