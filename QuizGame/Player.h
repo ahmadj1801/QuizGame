@@ -26,7 +26,7 @@ public:
 	//Constructors
 	Player();
 	Player(string name);
-
+	//comment
 	//Accessors
 	string getName();
 	double getScore();
