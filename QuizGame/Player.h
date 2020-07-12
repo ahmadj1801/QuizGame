@@ -35,7 +35,7 @@ public:
 
 	//Mutators
 	void updateScore(double value);
-	void setMultiplier(double value);
+	void setMultiplier();
 	void updateConsecAns(bool correct);
 	void updateCompletionBar();
 

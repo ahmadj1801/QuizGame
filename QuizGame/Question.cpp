@@ -2,6 +2,8 @@
 #include <string>
 #include <iostream>
 #include <vector>
+#include <algorithm>
+#include <random>
 
 Question::Question() {
 	//Default
@@ -18,9 +20,13 @@ Question::Question(string question,vector<string> answers, string tag) {
 		}
 		i++;
 	}
+	shuffleAnswers();
 	
 }
-
+void Question::shuffleAnswers() {
+	auto rng =default_random_engine{};
+	shuffle(begin(allAnswers),end(allAnswers),rng);
+}
 string Question::getQuestion() {
 		return question;
 }

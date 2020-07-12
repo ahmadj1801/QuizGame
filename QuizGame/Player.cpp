@@ -47,7 +47,14 @@ void Player::updateScore(double correct) {
 }
 
 //Still need to decide how we will increase the other 2 i.e. score and multiplier
-
+void Player::setMultiplier() {
+	if (pd.numOfConsecutiveCorrectAns >= 3) {
+		pd.multiplier = 1 +(pd.numOfConsecutiveCorrectAns / 10);
+	}
+	else {
+		pd.multiplier == 1;
+	}
+}
 //Overload > and < operators so we can compare player objects
 bool Player::operator>(const Player &p) {
 	if (pd.score > p.pd.score) {
