@@ -12,7 +12,7 @@ Player::Player(string name) {
 	pd.multiplier = 1;
 	pd.numOfConsecutiveCorrectAns = 0;
 	pd.score = 0;
-	pd.completionBar = "";
+	pd.completionBar = "|||";
 }
 
 //Accessors
@@ -39,40 +39,26 @@ void Player::updateConsecAns(bool correct) {
 	}
 	else {
 		pd.numOfConsecutiveCorrectAns++;
+		setMultiplier();
 	}
 }
 
 void Player::updateScore(double correct) {
-	pd.score = pd.score + correct * pd.multiplier;
+	pd.score = pd.score + (correct * pd.multiplier);
 }
 
 //Still need to decide how we will increase the other 2 i.e. score and multiplier
 void Player::setMultiplier() {
 	if (pd.numOfConsecutiveCorrectAns >= 3) {
-		pd.multiplier = 1 +(pd.numOfConsecutiveCorrectAns / 10);
+		pd.multiplier= pd.multiplier +1;
+		//pd.multiplier = 1 +(pd.numOfConsecutiveCorrectAns / 10);
 	}
 	else {
-		pd.multiplier == 1;
-	}
-}
-//Overload > and < operators so we can compare player objects
-bool Player::operator>(const Player &p) {
-	if (pd.score > p.pd.score) {
-		return true;
-	}
-	else {
-		return false;
+		pd.multiplier = 1;
 	}
 }
 
-bool Player::operator<(const Player &p) {
-	if (pd.score < p.pd.score) {
-		return true;
-	}
-	else {
-		return false;
-	}
-}
+//Move overloaded > and < to Game. It Works if defined there.
 
 void Player::updateCompletionBar() {
 	pd.completionBar = pd.completionBar + "|||";
@@ -89,6 +75,6 @@ void Player::displayCompletionbar() {
 
 //Destructor
 Player::~Player() {
-	cout <<"\n"<< pd.name << " has left the game!" << endl;
+	cout << pd.name << " has left the game!" << endl;
 	//delete qAndA;
 }

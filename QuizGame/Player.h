@@ -39,7 +39,7 @@ public:
 	void updateConsecAns(bool correct);
 	void updateCompletionBar();
 
-	bool operator>(const Player &p);
+	bool operator>(const Player &p1);
 
 	bool operator<(const Player &p);
 

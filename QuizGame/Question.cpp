@@ -18,14 +18,17 @@ Question::Question(string question,vector<string> answers, string tag) {
 		if (i == 0) {
 			correctAnswer = s;
 		}
+		shuffleAnswers();
 		i++;
 	}
 	shuffleAnswers();
 	
+	
 }
 void Question::shuffleAnswers() {
-	auto rng =default_random_engine{};
-	shuffle(begin(allAnswers),end(allAnswers),rng);
+	//auto rng =default_random_engine{};
+	//shuffle(begin(allAnswers),end(allAnswers),rng);
+	random_shuffle(allAnswers.begin(),allAnswers.end());
 }
 string Question::getQuestion() {
 		return question;
@@ -95,7 +98,7 @@ void Question::displayQuestion() {
 		else {
 			cout << "c) ";
 		}
-		cout << s << "\t";
+		cout << s << "\t\t";
 		i++;
 	}
 	cout << endl;
