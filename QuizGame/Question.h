@@ -35,6 +35,8 @@ class Question {
 		//Using below method for debugging purposes for know
 		void displayQuestion();
 
+		void removeOne();
+
 		void displayCorrectAnswer();
 
 		//Destructor

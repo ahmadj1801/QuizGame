@@ -120,7 +120,7 @@ void QuestionBank::populateStack() {
 Question QuestionBank::getQuestion() {
 	Question q = questionBank.top();
 	questionBank.pop();
-	q.displayQuestion();
+	//q.displayQuestion();
 	return q;
 }
 

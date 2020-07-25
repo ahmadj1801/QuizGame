@@ -108,6 +108,22 @@ void Question::displayCorrectAnswer() {
 	cout << "Correct Answer: " << correctAnswer << endl;
 }
 
+void Question::removeOne() {
+	int index = 0;
+	for (int i = 0; i < allAnswers.size();i++) {
+		if (correctAnswer==allAnswers[i]) {
+			index = i;
+		}
+	}
+
+	if (index>0) {
+		cout << "b) " << allAnswers[1] << "\t\tc)" << allAnswers[2]<<endl;
+	}
+	else {
+		cout << "a) " << allAnswers[0] << "\t\tb)" << allAnswers[1]<<endl;
+	}
+}
+
 Question::~Question() {
 
 }

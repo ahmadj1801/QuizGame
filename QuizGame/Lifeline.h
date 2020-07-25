@@ -18,11 +18,15 @@ public:
 
 	Lifeline(Question q);
 
-	//removes an answer
-	void fiftyFifty();
+	bool getFlagSave();
 
-	//adds +1 to multiplier
-	void saveMultiplier();
+	bool getFifyFifty();
+
+	//removes an answer and displays to player
+	void fiftyFifty(Question q);
+
+	// saves the persons multiplier if their answer is wrong
+	void saveMultiplier(bool decision);
 
 	//displays which lifelines are available 
 	void displayLifelines();
