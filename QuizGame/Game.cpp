@@ -83,11 +83,10 @@ int main() {
 		playARound(*p2, *questionBank, *life2, i);
 	}
 	
-	//Next line for debug purposes
-	std::cout << "Player1=" << p1->getScore() << "\nPlayer2=" << p2->getScore()<<endl;
-	
 	//Include: Background colour of yellow
 	gameWinner(*p1,*p2);
+
+	cout << "\n";
 
 	//end of game, player leaves
 	delete p1; delete p2;
@@ -95,21 +94,21 @@ int main() {
 }
 
 inline void introduction() {
-	std::cout << "Welcome to *Insert Name*\n"
+	std::cout << "Welcome to WIT WARRIORS\n"
 		<< "\nHow to Play:\n"
 		<< "===============\n"
-		<< "   - The game is played by two players.\n"
+		<< "   - The game is played between two players.\n"
 		<< "   - Each player will pick a topic from the list provided.\n"
 		<< "   - The questions generated for the quiz will be based on\n"
 		<< "     the topics choosen by the players.\n"
 		<< "   - The quiz will be comprised of 10 questions\n"
-		<< "   - Each player will be given two lifeline\n"
-		<< "          * 50-50: Selecting this will allow players\n"
-		<< "                   to drop one of the incorrect answers.\n"
-		<< "          * Save:  Selecting this allow players to save\n"
+		<< "   - Each player will be given TWO lifelines\n"
+		<< "          * 50-50: This Lifeline will drop one of\n"
+		<< "                   the incorrect answers.\n"
+		<< "          * Save:  This Lifeline will allow players to save\n"
 		<< "                   their score streak multiplier if they\n"
 		<< "                   get an answer incorrect.\n"
-		<< "   - Correctly answered question will earn you one point, but\n"
+		<< "   - Correctly answered questions will earn you 10 points, but\n"
 		<< "     string together 3 correct answers to earn yourself a\n"
 		<< "     score streak multiplier.\n"
 		<< "\nBelow is an example of a question you might encouter along with\n"
@@ -147,10 +146,16 @@ void playARound(Player &p, QuestionBank &questionBank, Lifeline &l, int &i) {
 	std::cout << "Current Score: " << p.getScore() << endl;
 	cout << "Perks Availaible:\t";
 	if (l.getFifyFifty()) {
-		cout << "50/50: 1 (Press d)" << endl;
+		cout << "50/50: 1 (Press d)\t";
 	}
 	else {
-		cout << "50/50: 0" << endl;
+		cout << "50/50: 0\t";
+	}
+	if (l.getFlagSave()) {
+		cout << "Save Multiplier: 1" << endl;
+	}
+	else {
+		cout<<"Save Multiplier: 0"<<endl;
 	}
 	if (!questionBank.questionsFinished()) {
 		q = questionBank.getQuestion();
@@ -182,7 +187,22 @@ void playARound(Player &p, QuestionBank &questionBank, Lifeline &l, int &i) {
 	{
 		//SetConsoleTextAttribute(handle, FOREGROUND_RED | FOREGROUND_INTENSITY);//Red
 		std::cout << "INCORRECT" << endl;
-		p.updateConsecAns(false);
+		char c;
+		if (l.getFlagSave() && p.getMultiplier()>1)
+		{
+			cout << "OOOPS!!! You run the risk of losing your score streak multiplier\n";
+			cout << "Would you like to save it (y/n): " << endl;
+			cin >> c;
+			cin.ignore();
+			if (c=='y') {
+				l.saveMultiplier(true);
+				cout << "Shew!!! That was a close one. Lets hope that doesn't happen again." << endl;
+			}
+		}
+		else {
+			p.updateConsecAns(false);
+		}
+		
 	}
 	//SetConsoleTextAttribute(handle, 11);//cyan
 	std::cout << "Your Answer: " << "(" << response << ") " << q.getSpecificAnswer(response) << endl;
@@ -194,17 +214,21 @@ void playARound(Player &p, QuestionBank &questionBank, Lifeline &l, int &i) {
 
 void gameWinner(Player &p1,Player &p2) {
 	//Display respective scores
+	cout << p1.getName() << " has a final score of: " << p1.getScore() << endl;
+	cout << p2.getName() << " has a final score of: " << p2.getScore() << endl;
+	cout << endl;
 	//HANDLE handle = GetStdHandle(STD_OUTPUT_HANDLE);
 	//SetConsoleTextAttribute(handle, 14);//yellow
 	if (p1 > p2) {
-		std::cout << p1.getName()<<" Wins\n";
+		std::cout <<"CONGRATULATIONS, YOUR'RE A QUIZZARD " << p1.getName()<<endl;
 	}
 	else if (p2 > p1) {
-		std::cout << p2.getName()<<" Wins\n";
+		std::cout << "CONGRATULATIONS, YOUR'RE A QUIZZARD "<< p2.getName()<<endl;
 	}
 	else {
-		std::cout << "Draw\n";
+		std::cout << "Draw!!!\n";
 	}
+	cout << endl;
 	//SetConsoleTextAttribute(handle, 15 | FOREGROUND_INTENSITY);//White
 }
 

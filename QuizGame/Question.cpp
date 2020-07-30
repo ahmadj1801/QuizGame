@@ -26,8 +26,6 @@ Question::Question(string question,vector<string> answers, string tag) {
 	
 }
 void Question::shuffleAnswers() {
-	//auto rng =default_random_engine{};
-	//shuffle(begin(allAnswers),end(allAnswers),rng);
 	random_shuffle(allAnswers.begin(),allAnswers.end());
 }
 string Question::getQuestion() {
@@ -85,7 +83,7 @@ string Question::getSpecificAnswer(char c) {
 }
 
 void Question::displayQuestion() {
-	cout << "\n" << this->getTag() << endl;
+	cout << "\nTopic: " << this->getTag() << endl;
 	cout << this->question<<endl;
 	int i = 0;
 	for (string s : this->allAnswers) {

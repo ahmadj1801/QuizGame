@@ -18,8 +18,9 @@ void Lifeline::fiftyFifty(Question q) {
 	}
 }
 
+//Changes the status from true to false
 void Lifeline::saveMultiplier(bool decision) {
-	flagSave = decision;
+	flagSave = !decision;
 }
 
 void Lifeline::displayLifelines(){}
