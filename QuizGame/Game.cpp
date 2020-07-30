@@ -50,20 +50,25 @@ int main() {
 	Lifeline *life2 = new Lifeline();
 
 	//Load all neccessary questions for the game
-	QuestionBank *questionBank = new QuestionBank(0,1);
-	/*int topic1, topic2 = 0;
-	while (topic1==topic2) {
-		std::cout << "Please select Two Different Game Question Topics: " << endl;
-		std::cout << "a)Geography\tb)History\tc)Music\td)Science\te)Film"<<endl;
-		std::cout << p1->getName() << " pick a topic: " << endl;
-		std::cout << p2->getName() << " pick a topic: " << endl;
-	}*/
+	int topic1 = 0;
+	int topic2 = 0;
+	std::cout << "\nPlease select Two Different Game Question Topics: " << endl;
+	std::cout << "1)Geography\t2)History\t3)Music\t4)Science\t5)Film"<<endl;
+	std::cout << p1->getName() << " pick a topic: " << endl;
+	cin>>topic1;
+	topic1--;
+	std::cout << p2->getName() << " pick a topic: " << endl ;
+	cin>>topic2;
+	topic2--;
+	cout << endl;
 
+	QuestionBank *questionBank = new QuestionBank(topic1, topic2);
 	//Play the actual Game...All this code could actually be in a method once done
-
+	cin.ignore();
+	//waitForEnter();
 	
-
 	std::cout << "Player 1, You will play first.\n" << endl;
+
 	//Player 1 Plays
 	for (int i = 1; i < 11; i++) {
 		playARound(*p1,*questionBank, *life1,i);
