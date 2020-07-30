@@ -23,6 +23,7 @@ inline void gameWinner(Player &p1, Player &p2);
 //inline void setYellow(HANDLE &h);
 void playARound(Player &p, QuestionBank &questionBank, Lifeline &l, int &i);
 
+//Points earned per correct question
 const int CORRECT = 10;
 
 int main() {
@@ -108,6 +109,7 @@ inline void introduction() {
 		<< "          * Save:  This Lifeline will allow players to save\n"
 		<< "                   their score streak multiplier if they\n"
 		<< "                   get an answer incorrect.\n"
+		<< "   - You get one of each lifeline, so use it wisely.\n"
 		<< "   - Correctly answered questions will earn you 10 points, but\n"
 		<< "     string together 3 correct answers to earn yourself a\n"
 		<< "     score streak multiplier.\n"

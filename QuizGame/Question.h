@@ -16,7 +16,7 @@ class Question {
 		//Constructor
 		Question();
 		Question(string question,vector<string> answers, string tag); //index 0 correct others wrong...initially
-
+		
 		//Accessor
 		string getQuestion();
 		string getCorrectAns();
