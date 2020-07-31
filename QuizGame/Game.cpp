@@ -52,46 +52,53 @@ int main() {
 	Lifeline *life1 = new Lifeline();
 	Lifeline *life2 = new Lifeline();
 
-	//Load all neccessary questions for the game
+	//Players choose the topics for the quiz
 	int topic1 = 0;
 	int topic2 = 0;
 	std::cout << "\nPlease select Two Different Game Question Topics: " << endl;
 	std::cout << "1)Geography\t 2)History\t 3)Music\t 4)Science\t 5)Film"<<endl;
 	std::cout << p1->getName() << " pick a topic: " << endl;
 	cin>>topic1;
+	//Codes for the Topics are from 0 to 4
+	//Displaying from 1 for user friendliness
 	topic1--;
 	std::cout << p2->getName() << " pick a topic: " << endl ;
 	cin>>topic2;
 	topic2--;
 	cout << endl;
 
+	//Create a Repository of Quiz questions
 	QuestionBank *questionBank = new QuestionBank(topic1, topic2);
-	//Play the actual Game...All this code could actually be in a method once done
-	cin.ignore();
-	//waitForEnter();
 	
+	cin.ignore();
+	//Displaying which player will play first
 	std::cout << p1->getName() <<", You will play first.\n" << endl;
 
 	//Player 1 Plays
 	for (int i = 1; i < 11; i++) {
+		//A Method that will Simulate a round with player interaction
 		playARound(*p1,*questionBank, *life1,i);
 	}
 
+	//Break before Player 2 Plays
 	gameBreak();
 
+	//Signal the 2nd player that its their turn to play
 	std::cout << p2->getName() << ", It's your turn.\n"<<endl;
+
 	//Player 2 Plays
 	for (int i = 1; i < 11; i++) {
 		//Player 2 plays
 		playARound(*p2, *questionBank, *life2, i);
 	}
 	
-	//Include: Background colour of yellow
+	//Check which player wins and display the result
 	gameWinner(*p1,*p2);
 
 	cout << "\n";
-
-	//end of game, player leaves
+	//Delete Lifeline Pointers
+	delete life1; delete life2;
+	//Players Leave the Game
 	delete p1; delete p2;
 	return 0;
 }
@@ -144,12 +151,17 @@ void playARound(Player &p, QuestionBank &questionBank, Lifeline &l, int &i) {
 	string answer;
 	char response;
 	Question q;
+	//Message to encourage users based on their progress
 	midQuestionInteraction(i);
+	//Display The question number
 	questionHeader(i);
+	//Players Completion Bar Graphic
 	p.displayCompletionbar();
 	std::cout << "\t" << i * 10 << "% Complete\n";
+	//Display Players Current Score
 	std::cout << "Current Score: " << p.getScore() << endl;
-	cout << "Perks Availaible:\t";
+	//Display the Players Lifelines
+	cout << "Lifelines Availaible:\t";
 	if (l.getFifyFifty()) {
 		cout << "50/50: 1 (Press d)\t";
 	}
@@ -162,15 +174,20 @@ void playARound(Player &p, QuestionBank &questionBank, Lifeline &l, int &i) {
 	else {
 		cout<<"Save Multiplier: 0"<<endl;
 	}
+	//Display a question to the player
 	if (!questionBank.questionsFinished()) {
 		q = questionBank.getQuestion();
 		q.displayQuestion();
 	}
+	//prompt and obtain response
 	std::cout << "Your Response: ";
+	//Once response is obtained, we preprocess to 
+	//ensure that it is in an acceptable format
 	getline(cin, answer);
 	answer.erase(remove_if(answer.begin(), answer.end(), ::isspace), answer.end());
 	response = answer[0];
 	response = tolower(response);
+	//If they enter d they will want to use their 50-50 lifeline
 	if (response=='d') {
 		if (l.getFifyFifty()) {
 			l.fiftyFifty(q);
@@ -181,6 +198,7 @@ void playARound(Player &p, QuestionBank &questionBank, Lifeline &l, int &i) {
 			response = tolower(response);
 		}
 	}
+	//Check if the players' answer is correct
 	if (q.compareAnswers(response)) 
 	{
 		//SetConsoleTextAttribute(handle, FOREGROUND_GREEN | FOREGROUND_INTENSITY);//Green
@@ -188,11 +206,14 @@ void playARound(Player &p, QuestionBank &questionBank, Lifeline &l, int &i) {
 		p.updateScore(CORRECT);
 		p.updateConsecAns(true);
 	}
-	else 
+	else //Wrong answer
 	{
 		//SetConsoleTextAttribute(handle, FOREGROUND_RED | FOREGROUND_INTENSITY);//Red
 		std::cout << "INCORRECT" << endl;
 		char c;
+		//If the answer is wrong and their multiplier is greater than 1
+		//and they still have the save multiplier lifeline available
+		//Prompt the player to use it. Either a y or n response
 		if (l.getFlagSave() && p.getMultiplier()>1)
 		{
 			cout << "OOOPS!!! You run the risk of losing your score streak multiplier\n";
@@ -202,6 +223,9 @@ void playARound(Player &p, QuestionBank &questionBank, Lifeline &l, int &i) {
 			if (c=='y') {
 				l.saveMultiplier(true);
 				cout << "Shew!!! That was a close one. Lets hope that doesn't happen again." << endl;
+			}
+			else {
+				p.updateConsecAns(false);
 			}
 		}
 		else {

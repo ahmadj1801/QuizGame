@@ -6,21 +6,20 @@
 #include "Question.h"
 
 using namespace std;
-
+//A sctruct to hold all attributes associated to a player
 struct PlayerDetails
 {
-	string name; //Name of Player
-	double score; //Current score
-	double multiplier; //Multiplier for score
+	string name;		//Name of Player
+	double score;		//Current score
+	double multiplier;	//Multiplier for score
 	int numOfConsecutiveCorrectAns; //Correct streak
-	string completionBar;// Form something like this "|||||||||" increment by ||| each question
-	int fiftyFifty;
-	int saveMultiplier;
+	string completionBar;// ||| increment each run
 };
 
 class Player
 {
 private:
+	//Instance of the struct
 	PlayerDetails pd;
 
 public:
@@ -40,13 +39,14 @@ public:
 	void updateConsecAns(bool correct);
 	void updateCompletionBar();
 
+	//operator overloading
 	bool operator>(const Player &p1);
-
 	bool operator<(const Player &p);
 
 	//Auxillary
 	void displayResults();
 	void displayCompletionbar();
+
 	//Destructor
 	~Player();
 

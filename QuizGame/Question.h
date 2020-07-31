@@ -7,13 +7,13 @@ using namespace std;
 
 class Question {
 	private:
-		string question;
-		string correctAnswer;
-		vector<string> allAnswers;
-		string tag;
+		string question; //Store the Question
+		string correctAnswer; //Store the Correct answer
+		vector<string> allAnswers;//A vector of all the answers
+		string tag; //Stores the topic of the Question i.e. History, Geography etc
 
 	public:
-		//Constructor
+		//Constructors
 		Question();
 		Question(string question,vector<string> answers, string tag); //index 0 correct others wrong...initially
 		
@@ -22,21 +22,20 @@ class Question {
 		string getCorrectAns();
 		string getTag();
 		string getSpecificAnswer(char c);
-
-		//Mutators
-		//Dont think we'll need to modify any attributes?
 		
-		//Auxillary
+		//Shuffle Method for a vector
 		void shuffleAnswers();//Need a way to shuffle the allAnswers vector so that when we output its always different
 		
-		//Also overload cout<< so we can use cout<<q1; and get a printed results
+		//Compare the players answer with the correct answer
 		bool compareAnswers(char c);
 
-		//Using below method for debugging purposes for know
+		//Display the question
 		void displayQuestion();
 
+		//Drop one of the correct Answers
 		void removeOne();
 
+		//Display the correct answer
 		void displayCorrectAnswer();
 
 		//Destructor

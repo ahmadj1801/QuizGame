@@ -47,18 +47,16 @@ void Player::updateScore(double correct) {
 	pd.score = pd.score + (correct * pd.multiplier);
 }
 
-//Still need to decide how we will increase the other 2 i.e. score and multiplier
+
 void Player::setMultiplier() {
 	if (pd.numOfConsecutiveCorrectAns >= 3) {
 		pd.multiplier= pd.multiplier +1;
-		//pd.multiplier = 1 +(pd.numOfConsecutiveCorrectAns / 10);
 	}
 	else {
 		pd.multiplier = 1;
 	}
 }
 
-//Move overloaded > and < to Game. It Works if defined there.
 
 void Player::updateCompletionBar() {
 	pd.completionBar = pd.completionBar + "|||";
