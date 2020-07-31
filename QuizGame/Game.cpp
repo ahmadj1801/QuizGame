@@ -16,6 +16,8 @@ inline void waitForEnter();
 inline void questionHeader(int &i);
 inline void gameBreak();
 inline void gameWinner(Player &p1, Player &p2);
+inline void midQuestionInteraction(int &i);
+
 //inline void setWhite(HANDLE &h);
 //inline void setRed(HANDLE &h);
 //inline void setGreen(HANDLE &h);
@@ -54,7 +56,7 @@ int main() {
 	int topic1 = 0;
 	int topic2 = 0;
 	std::cout << "\nPlease select Two Different Game Question Topics: " << endl;
-	std::cout << "1)Geography\t2)History\t3)Music\t4)Science\t5)Film"<<endl;
+	std::cout << "1)Geography\t 2)History\t 3)Music\t 4)Science\t 5)Film"<<endl;
 	std::cout << p1->getName() << " pick a topic: " << endl;
 	cin>>topic1;
 	topic1--;
@@ -68,7 +70,7 @@ int main() {
 	cin.ignore();
 	//waitForEnter();
 	
-	std::cout << "Player 1, You will play first.\n" << endl;
+	std::cout << p1->getName() <<", You will play first.\n" << endl;
 
 	//Player 1 Plays
 	for (int i = 1; i < 11; i++) {
@@ -77,7 +79,7 @@ int main() {
 
 	gameBreak();
 
-	std::cout << "Player 2, It's your turn.\n"<<endl;
+	std::cout << p2->getName() << ", It's your turn.\n"<<endl;
 	//Player 2 Plays
 	for (int i = 1; i < 11; i++) {
 		//Player 2 plays
@@ -142,6 +144,7 @@ void playARound(Player &p, QuestionBank &questionBank, Lifeline &l, int &i) {
 	string answer;
 	char response;
 	Question q;
+	midQuestionInteraction(i);
 	questionHeader(i);
 	p.displayCompletionbar();
 	std::cout << "\t" << i * 10 << "% Complete\n";
@@ -250,5 +253,17 @@ bool Player::operator<(const Player &p) {
 	}
 	else {
 		return false;
+	}
+}
+
+void midQuestionInteraction(int &i) {
+	if (i == 1) {
+		cout << "Get ready For the First Question..." << endl;
+	} else if (i==5) {
+		cout << "Halfway Through, Don't Slow Down :) " << endl;
+	} else if(i==10){
+		cout << "Time For The Final Question..." << endl;
+	} else {
+		cout << "On To The Next One !!! " << endl;
 	}
 }
