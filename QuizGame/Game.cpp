@@ -7,23 +7,18 @@
 #include <limits>
 #include <algorithm>
 #include "Lifeline.h"
-//#include <Windows.h>
+#include <Windows.h>
 
 using namespace std;
 
 inline void introduction();
 inline void waitForEnter();
-inline void questionHeader(int &i);
+inline void questionHeader(const int &i);
 inline void gameBreak();
 inline void gameWinner(Player &p1, Player &p2);
-inline void midQuestionInteraction(int &i);
+inline void midQuestionInteraction(const int &i);
 
-//inline void setWhite(HANDLE &h);
-//inline void setRed(HANDLE &h);
-//inline void setGreen(HANDLE &h);
-//inline void setBlue(HANDLE &h);
-//inline void setYellow(HANDLE &h);
-void playARound(Player &p, QuestionBank &questionBank, Lifeline &l, int &i);
+void playARound(Player &p, QuestionBank &questionBank, Lifeline &l, const int &i);
 
 //Points earned per correct question
 const int CORRECT = 10;
@@ -55,16 +50,18 @@ int main() {
 	//Players choose the topics for the quiz
 	int topic1 = 0;
 	int topic2 = 0;
-	std::cout << "\nPlease select Two Different Game Question Topics: " << endl;
-	std::cout << "1)Geography\t 2)History\t 3)Music\t 4)Science\t 5)Film"<<endl;
-	std::cout << p1->getName() << " pick a topic: " << endl;
-	cin>>topic1;
-	//Codes for the Topics are from 0 to 4
-	//Displaying from 1 for user friendliness
-	topic1--;
-	std::cout << p2->getName() << " pick a topic: " << endl ;
-	cin>>topic2;
-	topic2--;
+	while (topic1==topic2 || topic1<0 || topic2<0 || topic1>4 || topic2>4) {
+		std::cout << "\nPlease select Two Different Game Question Topics: " << endl;
+		std::cout << "1)Geography\t 2)History\t 3)Music\t 4)Science\t 5)Film" << endl;
+		std::cout << p1->getName() << " pick a topic: " << endl;
+		cin >> topic1;
+		//Codes for the Topics are from 0 to 4
+		//Displaying from 1 for user friendliness
+		topic1--;
+		std::cout << p2->getName() << " pick a different topic: " << endl;
+		cin >> topic2;
+		topic2--;
+	}
 	cout << endl;
 
 	//Create a Repository of Quiz questions
@@ -96,6 +93,7 @@ int main() {
 	gameWinner(*p1,*p2);
 
 	cout << "\n";
+	delete questionBank;
 	//Delete Lifeline Pointers
 	delete life1; delete life2;
 	//Players Leave the Game
@@ -122,7 +120,7 @@ inline void introduction() {
 		<< "   - Correctly answered questions will earn you 10 points, but\n"
 		<< "     string together 3 correct answers to earn yourself a\n"
 		<< "     score streak multiplier.\n"
-		<< "\nBelow is an example of a question you might encouter along with\n"
+		<< "\nBelow is an example of a question that you might encouter along with\n"
 		<< "its correct response:\n"
 		<< "Which country hosted the 2010 Fifa World Cup?\n"
 		<< "a) Spain\tb) Brazil\tc) South Africa\n"
@@ -135,7 +133,7 @@ inline void waitForEnter() {
 	cin.ignore();
 }
 
-inline void questionHeader(int &i) {
+inline void questionHeader(const int &i) {
 	std::cout << "\nQuestion " << i << " of 10:"<<endl;
 }
 
@@ -146,8 +144,8 @@ inline void gameBreak() {
 }
 
 //Code that will play a single question round
-void playARound(Player &p, QuestionBank &questionBank, Lifeline &l, int &i) {
-	//HANDLE handle = GetStdHandle(STD_OUTPUT_HANDLE);
+void playARound(Player &p, QuestionBank &questionBank, Lifeline &l, const int &i) {
+	HANDLE handle = GetStdHandle(STD_OUTPUT_HANDLE);
 	string answer;
 	char response;
 	Question q;
@@ -201,21 +199,22 @@ void playARound(Player &p, QuestionBank &questionBank, Lifeline &l, int &i) {
 	//Check if the players' answer is correct
 	if (q.compareAnswers(response)) 
 	{
-		//SetConsoleTextAttribute(handle, FOREGROUND_GREEN | FOREGROUND_INTENSITY);//Green
+		SetConsoleTextAttribute(handle, FOREGROUND_GREEN | FOREGROUND_INTENSITY);//Green
 		std::cout << "CORRECT" << endl;
 		p.updateScore(CORRECT);
 		p.updateConsecAns(true);
 	}
 	else //Wrong answer
 	{
-		//SetConsoleTextAttribute(handle, FOREGROUND_RED | FOREGROUND_INTENSITY);//Red
+		SetConsoleTextAttribute(handle, FOREGROUND_RED | FOREGROUND_INTENSITY);//Red
 		std::cout << "INCORRECT" << endl;
-		char c;
+		
 		//If the answer is wrong and their multiplier is greater than 1
 		//and they still have the save multiplier lifeline available
 		//Prompt the player to use it. Either a y or n response
 		if (l.getFlagSave() && p.getMultiplier()>1)
 		{
+			char c;
 			cout << "OOOPS!!! You run the risk of losing your score streak multiplier\n";
 			cout << "Would you like to save it (y/n): " << endl;
 			cin >> c;
@@ -225,19 +224,18 @@ void playARound(Player &p, QuestionBank &questionBank, Lifeline &l, int &i) {
 				cout << "Shew!!! That was a close one. Lets hope that doesn't happen again." << endl;
 			}
 			else {
+				l.saveMultiplier(false);
 				p.updateConsecAns(false);
 			}
-		}
-		else {
-			p.updateConsecAns(false);
-		}
-		
+		}else{ 
+			p.updateConsecAns(false); 
+		}	
 	}
-	//SetConsoleTextAttribute(handle, 11);//cyan
+	SetConsoleTextAttribute(handle, 11);//cyan
 	std::cout << "Your Answer: " << "(" << response << ") " << q.getSpecificAnswer(response) << endl;
 	q.displayCorrectAnswer();
 	std::cout << "\n\n";
-	//SetConsoleTextAttribute(handle, 15 | FOREGROUND_INTENSITY);//White
+	SetConsoleTextAttribute(handle, 15 | FOREGROUND_INTENSITY);//White
 	p.updateCompletionBar();
 }
 
@@ -246,23 +244,26 @@ void gameWinner(Player &p1,Player &p2) {
 	cout << p1.getName() << " has a final score of: " << p1.getScore() << endl;
 	cout << p2.getName() << " has a final score of: " << p2.getScore() << endl;
 	cout << endl;
-	//HANDLE handle = GetStdHandle(STD_OUTPUT_HANDLE);
-	//SetConsoleTextAttribute(handle, 14);//yellow
+	HANDLE handle = GetStdHandle(STD_OUTPUT_HANDLE);
+	SetConsoleTextAttribute(handle, 14);//Yellow Text
 	if (p1 > p2) {
+		std::cout << "Player 1, YOU WIN!!!" << endl;
 		std::cout <<"CONGRATULATIONS, YOUR'RE A QUIZZARD " << p1.getName()<<endl;
 	}
-	else if (p2 > p1) {
+	else if (p1 < p2) {
+		std::cout << "Player 2, YOU WIN!!!" << endl;
 		std::cout << "CONGRATULATIONS, YOUR'RE A QUIZZARD "<< p2.getName()<<endl;
 	}
 	else {
 		std::cout << "Draw!!!\n";
 	}
 	cout << endl;
-	//SetConsoleTextAttribute(handle, 15 | FOREGROUND_INTENSITY);//White
+	SetConsoleTextAttribute(handle, 15 | FOREGROUND_INTENSITY);//White Text
 }
 
 //Overload > and < operators so we can compare player objects
 bool Player::operator>(const Player &p) {
+	//Player 1 > Player 2
 	if (getScore() > p.pd.score) { 
 		return true;
 	}
@@ -272,7 +273,8 @@ bool Player::operator>(const Player &p) {
 }
 
 bool Player::operator<(const Player &p) {
-	if (getScore() > p.pd.score) {
+	//Player 1 < Player 2
+	if (getScore() < p.pd.score) {
 		return true;
 	}
 	else {
@@ -280,7 +282,7 @@ bool Player::operator<(const Player &p) {
 	}
 }
 
-void midQuestionInteraction(int &i) {
+void midQuestionInteraction(const int &i) {
 	if (i == 1) {
 		cout << "Get ready For the First Question..." << endl;
 	} else if (i==5) {

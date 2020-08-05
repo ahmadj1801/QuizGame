@@ -9,25 +9,36 @@ Question::Question() {
 	//Default
 }
 
-Question::Question(string question,vector<string> answers, string tag) {
+Question::Question(string &question,vector<string> &answers, string &tag) {
+	//Store The Question
 	this->question = question;
+	//Store the Tags
 	this->tag = tag;
+	//Rule Used During Development: 
+	//     - Index 0 represents the correct answer before the shuffle
 	int i = 0;
 	for (string s : answers) {
+		//Add the answer to the vector
 		this->allAnswers.push_back(s);
+		//Check if i=0
 		if (i == 0) {
+			//Yes? Then assign it as the correct answer
 			correctAnswer = s;
 		}
+		//Shuffle all the current elements
 		shuffleAnswers();
+		//increase i
 		i++;
 	}
+	//All answers loaded. Shuffle the vector.
 	shuffleAnswers();
-	
-	
 }
+
+//Code to shuffle the vector
 void Question::shuffleAnswers() {
 	random_shuffle(allAnswers.begin(),allAnswers.end());
 }
+
 string Question::getQuestion() {
 		return question;
 }
@@ -57,7 +68,7 @@ bool Question::compareAnswers(char c) {
 		cout << "Invalid Option Entered!\n";
 		return false;
 	}
-
+	//Return if the players answer is correct
 	if (allAnswers[index].compare(correctAnswer)==0) {
 		return true;
 	}
@@ -66,6 +77,7 @@ bool Question::compareAnswers(char c) {
 	}	
 }
 
+//Return the string value of the players answer
 string Question::getSpecificAnswer(char c) {
 	switch (c) {
 	case 'a':
@@ -82,6 +94,7 @@ string Question::getSpecificAnswer(char c) {
 	}
 }
 
+//Question display
 void Question::displayQuestion() {
 	cout << "\nTopic: " << this->getTag() << endl;
 	cout << this->question<<endl;
@@ -102,10 +115,12 @@ void Question::displayQuestion() {
 	cout << endl;
 }
 
+//Print the correct answer
 void Question::displayCorrectAnswer() {
 	cout << "Correct Answer: " << correctAnswer << endl;
 }
 
+//Drops on of the incorrect answers
 void Question::removeOne() {
 	int index = 0;
 	for (int i = 0; i < allAnswers.size();i++) {
@@ -122,6 +137,7 @@ void Question::removeOne() {
 	}
 }
 
+//Destructor
 Question::~Question() {
 
 }

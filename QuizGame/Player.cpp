@@ -7,6 +7,7 @@ Player::Player() {
 	Player("Player 1");
 }
 
+//Parameterised Constructor
 Player::Player(string name) {
 	pd.name = name;
 	pd.multiplier = 1;
@@ -39,8 +40,8 @@ void Player::updateConsecAns(bool correct) {
 	}
 	else {
 		pd.numOfConsecutiveCorrectAns++;
-		setMultiplier();
 	}
+	setMultiplier();
 }
 
 void Player::updateScore(double correct) {
@@ -74,5 +75,4 @@ void Player::displayCompletionbar() {
 //Destructor
 Player::~Player() {
 	cout << pd.name << " has left the game!" << endl;
-	//delete qAndA;
 }

@@ -27,6 +27,7 @@ QuestionBank::QuestionBank(int choice1, int choice2)
 	populateStack();
 }
 
+//Read data from text file
 void QuestionBank::readTextFile(int txt, int round) 
 {
 	int index = round;
@@ -79,48 +80,61 @@ void QuestionBank::readTextFile(int txt, int round)
 			Question *question = new Question(userQuestion, *answers,tag);
 			loadingList[index] = *question;
 			index++;
-			//question->displayQuestion();
 		}
 	}
 	else 
 	{
 		cout << "File could not be opened";
 	}
+	//shuffle(loadingList,19);
 	questionFile.close();
 }
 
+//Template Function 1: A Code for Splitting a String based on a delimeter(#)
 template<class Container>
 void QuestionBank::splitContent(const string &str, Container &cont, char delim) 
-{
+{//Takes in a	1. string	2. Container(we use a vector)	3. Delimeter(we used a #)
 	stringstream ss(str);
 	string token;
+	//While theres more (Read until # )
 	while (getline(ss,token,delim))
 	{
+		//Add it to the Container(vector)
 		cont.push_back(token);
 	}
 }
 
+//Template Function : Shuffling of an Array of size n
 template<class T>
 void QuestionBank::shuffle(T arr[], int n) {
+	//Initialize the random number generator
 	srand(time(NULL));
 	for (int i = n - 1; i > 0; i--) {
+		//Random number => Ensure within range as well
 		int random = rand() % (i + 1);
-		Question temp = loadingList[random];
-		loadingList[random] = loadingList[i];
-		loadingList[i] = temp;
+		//Code for a swap
+		//T &temp;
+		T temp = arr[random];
+		arr[random] = arr[i];
+		arr[i] = temp;
 	}
+
 }
 
 void QuestionBank::populateStack() {
+	//Loop 20 times for the 20 questions
 	for (int i = 0; i < 20; i++) {
+		//Push into the stack
 		questionBank.push(loadingList[i]);
 	}
 }
 
 Question QuestionBank::getQuestion() {
+	//Get the Question from the top of the stack
 	Question q = questionBank.top();
+	//Remove it from the stack
 	questionBank.pop();
-	//q.displayQuestion();
+	//Return the Question
 	return q;
 }
 
@@ -131,9 +145,8 @@ bool QuestionBank::questionsFinished() {
 	return false;
 }
 
-
-
+//Destructor
 QuestionBank::~QuestionBank() 
 {
- //Destructor
+	
 }

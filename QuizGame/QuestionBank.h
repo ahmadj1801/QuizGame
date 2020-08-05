@@ -41,9 +41,7 @@ class QuestionBank {
 		//Check if our stack is empty
 		bool questionsFinished();
 
-		//pop from stack and display to user
-		//void displayNextQuestion(); 
-
+		//pop from stack and return
 		Question getQuestion();
 
 		//Destructor

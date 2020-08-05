@@ -7,9 +7,8 @@ class Lifeline {
 
 private:
 	
-	bool flagFifty;//flags to determine if lifeline is used
-	bool flagSave;
-	Question q;
+	bool flagFifty;	//flags to determine 50/50 is used
+	bool flagSave;	//Flag to determine if save multiplier has been used
 
 public:
 
